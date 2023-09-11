@@ -1,3 +1,6 @@
+"""
+@Software: PyCharm
+"""
 from tkinter import *
 from tkinter import messagebox
 from tkinter.filedialog import askopenfilename

@@ -1,8 +1,4 @@
-# -*- coding: utf-8 -*-
 """
-@Time:Created on 2019/4/30 16:10
-@author: LiFan Chen
-@Filename: word2vec.py
 @Software: PyCharm
 """
 from gensim.models import Word2Vec

@@ -1,11 +1,6 @@
-# -*- coding: utf-8 -*-
 """
-@Time:Created on 2019/9/25 10:03
-@author: LiFan Chen
-@Filename: main.py
 @Software: PyCharm
 """
-
 import torch
 import numpy as np
 import random

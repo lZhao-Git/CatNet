@@ -1,8 +1,4 @@
-# -*- coding: utf-8 -*-
 """
-@Time:Created on 2019/9/24 15:49
-@author: LiFan Chen
-@Filename: model.py
 @Software: PyCharm
 """
 import torch

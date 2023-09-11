@@ -1,8 +1,4 @@
-# -*- coding: utf-8 -*-
 """
-@Time:Created on 2019/8/20 20:47
-@author: LiFan Chen
-@Filename: lookahead.py
 @Software: PyCharm
 """
 from collections import defaultdict
