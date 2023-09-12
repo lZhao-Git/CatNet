@@ -111,7 +111,7 @@ class CatNetApply():
         smi = self.entry_smi.get()
         seq = self.entry_seq.get()
         fileName = self.entry_file.get()
-        if (smi != '') and (smi !=''):
+        if (smi != '') and (seq !=''):
             # # chem-NR pair
             dataset = return_dataset(smi,seq)
             pred_results = test_prediction(dataset)
@@ -130,6 +130,10 @@ class CatNetApply():
             if not os.path.exists('./dataset/'+fileNameSuffix):
                 bulid_dataset(fileName,fileNameSuffix)
             pred_results = test_prediction(fileNameSuffix)
+        elif (smi != '') and (seq ==''):
+            messagebox.showwarning("Warning","Please input protein sequence")
+        elif (seq != '') and (smi ==''):
+            messagebox.showwarning("Warning","Please input SMILES")
         else:
             pass
 
