@@ -18,10 +18,10 @@ def test_prediction(varValue):
     if torch.cuda.is_available():
         device = torch.device('cuda:0')
         # device = torch.device('cpu')
-        print('The code uses GPU...')
+        # print('The code uses GPU...')
     else:
         device = torch.device('cpu')
-        print('The code uses CPU!!!')
+        # print('The code uses CPU!!!')
 
     """ create model ,trainer and tester """
     protein_dim = 100
@@ -47,7 +47,6 @@ def test_prediction(varValue):
     best_model = os.listdir('bestModel')
     for name in best_model:
         if name.endswith('.pt'):
-            print('best_model:',name)
             k_v = name[:-3].split(',')
             # print(k_v)
             k_v_dict = {}

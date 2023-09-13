@@ -8,7 +8,6 @@ import numpy as np
 
 def seq_to_kmers(seq, k=3):
     """ Divide a string into a list of kmers strings.
-
     Parameters:
         seq (string)
         k (int), default 3
@@ -21,7 +20,6 @@ def seq_to_kmers(seq, k=3):
 
 class Corpus(object):
     """ An iteratable for training seq2vec models. """
-
     def __init__(self, dir, ngram):
         self.df = pd.read_csv(dir)
         self.ngram = ngram
@@ -42,15 +40,9 @@ def get_protein_embedding(model,protein):
 
 
 if __name__ == "__main__":
-
     sent_corpus = Corpus("data/uniprot.csv",3)
     model = Word2Vec(vector_size=100, window=5, min_count=1, workers=6)
     model.build_vocab(sent_corpus)
-    model.train(sent_corpus,epochs=30,total_examples=model.corpus_count)
+    model.train(sent_corpus,epochs=50,total_examples=model.corpus_count)
     model.save("word2vec_50.model")
 
-    """
-    model = Word2Vec.load("word2vec_30.model")
-    vector = get_protein_embedding(model,seq_to_kmers("MSPLNQSAEGLPQEASNRSLNATETSEAWDPRTLQALKISLAVVLSVITLATVLSNAFVLTTILLTRKLHTPANYLIGSLATTDLLVSILVMPISIAYTITHTWNFGQILCDIWLSSDITCCTASILHLCVIALDRYWAITDALEYSKRRTAGHAATMIAIVWAISICISIPPLFWRQAKAQEEMSDCLVNTSQISYTIYSTCGAFYIPSVLLIILYGRIYRAARNRILNPPSLYGKRFTTAHLITGSAGSSLCSLNSSLHEGHSHSAGSPLFFNHVKIKLADSALERKRISAARERKATKILGIILGAFIICWLPFFVVSLVLPICRDSCWIHPALFDFFTWLGYLNSLINPIIYTVFNEEFRQAFQKIVPFRKAS"))
-    print(vector.shape)
-    """

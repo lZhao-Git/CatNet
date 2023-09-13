@@ -116,7 +116,7 @@ def bulid_dataset(fileName,fileNameSuffix):
     compounds, adjacencies, proteins = [], [], []
     model = Word2Vec.load("word2vec_50.model")
     for no, data in enumerate(data_list):
-        print('/'.join(map(str, [no + 1, N])))
+        # print('/'.join(map(str, [no + 1, N])))
         smiles, sequence = data.strip().split(" ")
         # print('smi_seq:',smiles,sequence)
 
@@ -164,7 +164,7 @@ if __name__ == "__main__":
     compounds, adjacencies, fps, proteins, interactions = [], [], [], [], []
     model = Word2Vec.load("word2vec_50.model")
     for no, data in enumerate(data_list):
-        print('/'.join(map(str, [no + 1, N])))
+        # print('/'.join(map(str, [no + 1, N])))
         smiles, sequence, interaction = data.strip().split(" ")
 
         atom_feature, adj = mol_features(smiles)

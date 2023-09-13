@@ -24,7 +24,7 @@ def split_dataset(dataset, ratio):
     return dataset_1, dataset_2
 
 
-if __name__ == "__main__":
+def main():
     set_random_seed(1)
     """CPU or GPU"""
     if torch.cuda.is_available():
@@ -103,3 +103,6 @@ if __name__ == "__main__":
             if num >= 10:
                 break
 
+
+if __name__ == "__main__":
+    main()

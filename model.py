@@ -437,36 +437,6 @@ class Tester(object):
     def save_model(self, model, filename):
         torch.save(model.state_dict(), filename)
 
-    def testEvaluate(self, dataset):
-        self.model.eval()
-        N = len(dataset)
-        T, Y, S = [], [], []
-        with torch.no_grad():
-            for data in dataset:
-                adjs, atoms,proteins, labels = [], [], [], []
-                atom, adj,protein, label = data
-                adjs.append(adj)
-                atoms.append(atom)
-                proteins.append(protein)
-                labels.append(label)
-                data = pack(atoms,adjs,proteins, labels, self.model.device)
-                loss_dev_cpu,correct_labels, predicted_labels, predicted_scores = self.model(data, train=False)
-                T.extend(correct_labels)
-                Y.extend(predicted_labels)
-                S.extend(predicted_scores)
-
-        TN, FP, FN, TP = confusion_matrix(T, Y).ravel()
-        roc_auc = roc_auc_score(T, S)
-        accuracy = accuracy_score(T, Y)
-        recall = recall_score(T, Y)
-        specificity = TN / float(TN + FP)
-        F1_score = f1_score(T, Y)
-        ppv, se, _ = precision_recall_curve(T, S)
-        PRC = auc(se, ppv)
-        roc_auc, PRC,accuracy, recall, specificity, F1_score = map(lambda i: Decimal(i).quantize(Decimal('0.0001'), rounding='ROUND_HALF_UP'),
-                                        [roc_auc, PRC,accuracy, recall, specificity, F1_score])
-        return roc_auc, PRC,accuracy, recall, specificity, F1_score
-
     def testPredict(self, dataset):
         self.model.eval()
         N = len(dataset)
@@ -486,63 +456,4 @@ class Tester(object):
         pred_prob_pd_thred2 = pd.DataFrame(S_label2, columns=['predictive label'])
         pred_results = pd.concat([pred_prob_pd,pred_prob_pd_thred2], axis=1)
         return pred_results
-
-    def find_best_cutoff(self, y_true, y_proba):
-        fpr, tpr, thresholds = roc_curve(y_true, y_proba)
-        best_index = np.argmax(tpr+(1-fpr)-1)
-        best_threshold = thresholds[best_index]
-        best_point = [fpr[best_index], tpr[best_index]]
-        return best_threshold, best_point, fpr, tpr
-
-    def valid_thd(self, dataset):
-        self.model.eval()
-        N = len(dataset)
-        T, Y, S = [], [], []
-        with torch.no_grad():
-            for data in dataset:
-                adjs, atoms,proteins, labels = [], [], [], []
-                atom, adj,protein, label = data
-                adjs.append(adj)
-                atoms.append(atom)
-                proteins.append(protein)
-                labels.append(label)
-                data = pack(atoms,adjs,proteins, labels, self.model.device)
-                loss_dev_cpu,correct_labels, predicted_labels, predicted_scores = self.model(data, train=False)
-                T.extend(correct_labels)
-                Y.extend(predicted_labels)
-                S.extend(predicted_scores)
-        best_threshold, best_point, fpr, tpr = self.find_best_cutoff(T, S)
-        return best_threshold
-
-    def testEvaluate_thd(self, dataset,best_threshold):
-        self.model.eval()
-        N = len(dataset)
-        T, Y, S = [], [], []
-        with torch.no_grad():
-            for data in dataset:
-                adjs, atoms,proteins, labels = [], [], [], []
-                atom, adj,protein, label = data
-                adjs.append(adj)
-                atoms.append(atom)
-                proteins.append(protein)
-                labels.append(label)
-                data = pack(atoms,adjs,proteins, labels, self.model.device)
-                loss_dev_cpu,correct_labels, predicted_labels, predicted_scores = self.model(data, train=False)
-                T.extend(correct_labels)
-                Y.extend(predicted_labels)
-                S.extend(predicted_scores)
-        Y = [0 if i < best_threshold else 1 for i in S]
-        TN, FP, FN, TP = confusion_matrix(T, Y).ravel()
-        roc_auc = roc_auc_score(T, S)
-        accuracy = accuracy_score(T, Y)
-        recall = recall_score(T, Y)
-        specificity = TN / float(TN + FP)
-        F1_score = f1_score(T, Y)
-        ppv, se, _ = precision_recall_curve(T, S)
-        PRC = auc(se, ppv)
-        roc_auc, PRC,accuracy, recall, specificity, F1_score = map(lambda i: Decimal(i).quantize(Decimal('0.0001'), rounding='ROUND_HALF_UP'),
-                                        [roc_auc, PRC,accuracy, recall, specificity, F1_score])
-        return roc_auc, PRC,accuracy, recall, specificity, F1_score
-    
-
 

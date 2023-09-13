@@ -126,7 +126,6 @@ class CatNetApply():
         elif fileName.endswith('.txt'):
             # # chem-NR pairs
             fileNameSuffix = fileName.split('/')[-1]
-            print(fileName,fileNameSuffix)
             if not os.path.exists('./dataset/'+fileNameSuffix):
                 bulid_dataset(fileName,fileNameSuffix)
             pred_results = test_prediction(fileNameSuffix)
