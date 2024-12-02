@@ -17,5 +17,6 @@ Our research presents the CatNet model, a novel advance that synergistically int
 `py CatNet.py`
 <div align=center><image width="550" height="400" src="https://github.com/lZhao-Git/CatNet/blob/master/pics/GUI.png"/></div>
 To use it, simply input the SMILES string of the chemical and the amino acid sequence of the desired protein. Once entered, just click on the "Submit" button, and the software will display the predicted outcome in the "Result of prediction" section. For those handling bulk data, CatNet provides a feature where users can conveniently upload a txt file containing multiple SMILES strings and corresponding protein sequences. Once predictions are complete, results can be effortlessly downloaded in CSV format.
+  
 ## Citation
 Lu Zhao, Qiao Xue*, Huazhou Zhang, Yuxing Hao, Hang Yi, Xian Liu, Wenxiao Pan, Jianjie Fu, Aiqian Zhang*. CatNet: Sequence-based deep learning with cross-attention mechanism for identifying endocrine-disrupting chemicals [J]. Journal of Hazardous Materials, 2024, 465: 133055
